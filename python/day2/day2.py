@@ -6,7 +6,6 @@ class Game:
     id: int
     subgames: list[dict]
     maxes: dict[str, int] = field(init=False)
-    mins: dict[str, int] = field(init=False)
 
     def __post_init__(self):
         self.maxes = {}
