@@ -81,13 +81,11 @@ def part2trie():
                     digits.append(int(ch))
                     next = self.root
                     curr = None
+                    prev = None
+
                 elif ch.isalpha():
                     idx = self.ch_idx(ch)
                     next = curr.children[idx]
-
-                    if next is not None and prev is not None:
-                        if next.idx == prev.idx:
-                            next = self.root
 
                     if next is not None and next.value is not None:
                         digits.append(next.value)
@@ -96,11 +94,14 @@ def part2trie():
                         else:
                             next = self.root
 
-                    # elif next is None and self.root.children[idx] is not None:
-                    #     next = self.root.children[idx]
+                    elif next is None and curr.idx == idx and prev is not None:
+                        if self.root.children[idx] is not None:
+                            next = self.root.children[idx]
+                            prev = None
 
                     elif next is None:
                         next = self.root
+                        prev = None
 
                 prev = curr
                 curr = next
